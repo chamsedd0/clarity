@@ -22,27 +22,27 @@ const Footer: React.FC = () => {
           <div>
             <h3 className="font-semibold text-gray-800">Company</h3>
             <ul className="mt-4 space-y-2 text-gray-600">
-              <li><a href="#" className="hover:text-purple-600">About</a></li>
-              <li><a href="#" className="hover:text-purple-600">Careers</a></li>
-              <li><a href="#" className="hover:text-purple-600">Press</a></li>
+              <li><a href="#" className="hover:text-indigo-600">About</a></li>
+              <li><a href="#" className="hover:text-indigo-600">Careers</a></li>
+              <li><a href="#" className="hover:text-indigo-600">Press</a></li>
             </ul>
           </div>
           <div>
             <h3 className="font-semibold text-gray-800">Legal</h3>
             <ul className="mt-4 space-y-2 text-gray-600">
-              <li><a href="#" className="hover:text-purple-600">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-purple-600">Terms of Service</a></li>
-              <li><a href="#" className="hover:text-purple-600">Contact</a></li>
+              <li><a href="#" className="hover:text-indigo-600">Privacy Policy</a></li>
+              <li><a href="#" className="hover:text-indigo-600">Terms of Service</a></li>
+              <li><a href="#" className="hover:text-indigo-600">Contact</a></li>
             </ul>
           </div>
         </div>
         <div className="mt-8 pt-8 border-t border-gray-200/80 flex flex-col sm:flex-row items-center justify-between">
           <p className="text-gray-500 text-sm">&copy; {new Date().getFullYear()} Nexus News. All rights reserved.</p>
           <div className="flex items-center space-x-4 mt-4 sm:mt-0">
-            <a href="#" aria-label="Facebook" className="text-gray-500 hover:text-purple-600"><FacebookIcon /></a>
-            <a href="#" aria-label="Twitter" className="text-gray-500 hover:text-purple-600"><TwitterIcon /></a>
-            <a href="#" aria-label="Instagram" className="text-gray-500 hover:text-purple-600"><InstagramIcon /></a>
-            <a href="#" aria-label="LinkedIn" className="text-gray-500 hover:text-purple-600"><LinkedInIcon /></a>
+            <a href="#" aria-label="Facebook" className="text-gray-500 hover:text-indigo-600"><FacebookIcon /></a>
+            <a href="#" aria-label="Twitter" className="text-gray-500 hover:text-indigo-600"><TwitterIcon /></a>
+            <a href="#" aria-label="Instagram" className="text-gray-500 hover:text-indigo-600"><InstagramIcon /></a>
+            <a href="#" aria-label="LinkedIn" className="text-gray-500 hover:text-indigo-600"><LinkedInIcon /></a>
           </div>
         </div>
       </div>

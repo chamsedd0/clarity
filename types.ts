@@ -29,3 +29,12 @@ export interface Comment {
   text: string;
   timestamp: string;
 }
+
+export interface Podcast {
+  id: number;
+  title: string;
+  description: string;
+  duration: string;
+  imageUrl: string;
+  listenLink: string;
+}

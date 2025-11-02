@@ -1,9 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Article, Comment } from '../types';
 import { ArrowLeftIcon } from '../components/icons/ArrowLeftIcon';
 import { HeartIcon } from '../components/icons/HeartIcon';
 import { ShareIcon } from '../components/icons/ShareIcon';
 import { BookmarkIcon } from '../components/icons/BookmarkIcon';
+import { FacebookIcon } from '../components/icons/FacebookIcon';
+import { TwitterIcon } from '../components/icons/TwitterIcon';
+import { LinkedInIcon } from '../components/icons/LinkedInIcon';
+import { LinkIcon } from '../components/icons/LinkIcon';
 
 interface ArticlePageProps {
   article: Article;
@@ -22,7 +26,7 @@ const RelatedArticleCard: React.FC<{ article: Article; onClick: () => void }> = 
       />
     </div>
     <span className="text-sm font-semibold text-blue-600">{article.category}</span>
-    <h4 className="mt-1 font-semibold text-gray-800 group-hover:text-purple-600 transition-colors leading-tight">
+    <h4 className="mt-1 font-semibold text-gray-800 group-hover:text-indigo-600 transition-colors leading-tight">
       {article.title}
     </h4>
   </div>
@@ -31,6 +35,9 @@ const RelatedArticleCard: React.FC<{ article: Article; onClick: () => void }> = 
 const ArticlePage: React.FC<ArticlePageProps> = ({ article, onBack, allArticles, onArticleSelect }) => {
   const [comments, setComments] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState('');
+  const [isShareMenuOpen, setIsShareMenuOpen] = useState(false);
+  const [copyStatus, setCopyStatus] = useState('Copy Link');
+  const shareMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     try {
@@ -43,6 +50,16 @@ const ArticlePage: React.FC<ArticlePageProps> = ({ article, onBack, allArticles,
       console.error("Failed to parse comments from localStorage", error);
     }
   }, [article.id]);
+  
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (shareMenuRef.current && !shareMenuRef.current.contains(event.target as Node)) {
+        setIsShareMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const handleCommentSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -69,6 +86,15 @@ const ArticlePage: React.FC<ArticlePageProps> = ({ article, onBack, allArticles,
     }
 
     setNewComment('');
+  };
+
+  const articleUrl = window.location.href;
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(articleUrl).then(() => {
+      setCopyStatus('Copied!');
+      setTimeout(() => setCopyStatus('Copy Link'), 2000);
+    });
   };
   
   const relatedArticles = allArticles
@@ -111,9 +137,32 @@ const ArticlePage: React.FC<ArticlePageProps> = ({ article, onBack, allArticles,
                 <button aria-label="Like article" className="p-2 rounded-full hover:bg-gray-200/70 transition-colors">
                     <HeartIcon />
                 </button>
-                 <button aria-label="Share article" className="p-2 rounded-full hover:bg-gray-200/70 transition-colors">
-                    <ShareIcon />
-                </button>
+                 <div className="relative" ref={shareMenuRef}>
+                    <button 
+                        onClick={() => setIsShareMenuOpen(!isShareMenuOpen)}
+                        aria-label="Share article" 
+                        className="p-2 rounded-full hover:bg-gray-200/70 transition-colors"
+                    >
+                        <ShareIcon />
+                    </button>
+                    {isShareMenuOpen && (
+                        <div className="absolute right-0 top-full mt-2 w-52 bg-white rounded-lg shadow-xl py-2 z-50 border border-gray-200/80 animate-fade-in-fast">
+                            <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(articleUrl)}&text=${encodeURIComponent(article.title)}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600">
+                               <div className="w-5 h-5 flex items-center justify-center"><TwitterIcon /></div> <span>Share on Twitter</span>
+                            </a>
+                            <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(articleUrl)}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600">
+                               <div className="w-5 h-5 flex items-center justify-center"><FacebookIcon /></div> <span>Share on Facebook</span>
+                            </a>
+                            <a href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(articleUrl)}&title=${encodeURIComponent(article.title)}&summary=${encodeURIComponent(article.description)}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600">
+                               <div className="w-5 h-5 flex items-center justify-center"><LinkedInIcon /></div> <span>Share on LinkedIn</span>
+                            </a>
+                            <hr className="my-1 border-gray-200/60" />
+                            <button onClick={handleCopyLink} className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600">
+                               <LinkIcon className="w-5 h-5" /> <span>{copyStatus}</span>
+                            </button>
+                        </div>
+                    )}
+                </div>
                  <button aria-label="Bookmark article" className="p-2 rounded-full hover:bg-gray-200/70 transition-colors">
                     <BookmarkIcon />
                 </button>
@@ -166,13 +215,13 @@ const ArticlePage: React.FC<ArticlePageProps> = ({ article, onBack, allArticles,
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
             placeholder="Write your comment..."
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none transition"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none transition"
             rows={4}
             aria-label="Comment input"
           />
           <button
             type="submit"
-            className="mt-4 px-6 py-2 bg-purple-600 text-white font-semibold rounded-full hover:bg-purple-700 transition-colors disabled:bg-gray-400"
+            className="mt-4 px-6 py-2 bg-indigo-600 text-white font-semibold rounded-full hover:bg-indigo-700 transition-colors disabled:bg-gray-400"
             disabled={!newComment.trim()}
           >
             Post Comment

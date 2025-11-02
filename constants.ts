@@ -1,4 +1,4 @@
-import { Article, Interview } from './types';
+import { Article, Interview, Podcast } from './types';
 
 export const newsCategories: string[] = [
   'Technology',
@@ -12,6 +12,8 @@ export const newsCategories: string[] = [
   'Lifestyle',
   'Culture',
   'Environment',
+  'Exclusives',
+  'Guides',
 ];
 
 const placeholderContent = `
@@ -74,7 +76,7 @@ export const bottomArticles: Article[] = [
 export const recommendedArticles: Article[] = [
   {
     id: 5,
-    category: 'Regulation',
+    category: 'Exclusives',
     timestamp: '7 hours ago',
     title: 'US-Approved Spot Bitcoin ETFs Could Surpass Entire $50 Billion Crypto ETP Market: BitMEX',
     description: 'A BitMEX report predicts that new Bitcoin ETFs will attract massive capital inflows, reshaping the investment landscape.',
@@ -96,7 +98,7 @@ export const recommendedArticles: Article[] = [
   },
   {
     id: 7,
-    category: 'Altcoins',
+    category: 'Guides',
     timestamp: '9 hours ago',
     title: 'STX Price Prediction: After 126% Price Jump in December, What\'s in Store for 2024?',
     description: 'Can the popular altcoin continue its impressive run? We look at the technicals and fundamentals.',
@@ -175,5 +177,40 @@ export const liveInterviews: Interview[] = [
     datetime: 'June 15, 2024',
     guestImageUrl: 'https://i.pravatar.cc/150?u=cz',
     watchLink: '#',
+  },
+];
+
+export const latestPodcasts: Podcast[] = [
+  {
+    id: 1,
+    title: 'The Future of Web3 Gaming',
+    description: 'An in-depth discussion with industry leaders about the next generation of blockchain-based games.',
+    duration: '45 min',
+    imageUrl: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    listenLink: '#',
+  },
+  {
+    id: 2,
+    title: 'DeFi Deep Dive: Yield Farming Strategies',
+    description: 'Explore advanced strategies for maximizing your returns in the decentralized finance ecosystem.',
+    duration: '62 min',
+    imageUrl: 'https://images.unsplash.com/photo-1640955032549-3c58850a5e11?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    listenLink: '#',
+  },
+  {
+    id: 3,
+    title: 'NFTs: Art, Community, or Bubble?',
+    description: 'A balanced conversation about the cultural and financial impact of Non-Fungible Tokens.',
+    duration: '55 min',
+    imageUrl: 'https://images.unsplash.com/photo-1638515091392-add87786400b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    listenLink: '#',
+  },
+    {
+    id: 4,
+    title: 'Crypto Regulation: What to Expect in 2024',
+    description: 'Legal experts break down the potential regulatory landscape for cryptocurrencies in the coming year.',
+    duration: '38 min',
+    imageUrl: 'https://images.unsplash.com/photo-1518974198845-31c3954ac698?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    listenLink: '#',
   },
 ];
